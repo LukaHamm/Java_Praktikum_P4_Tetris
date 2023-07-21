@@ -5,11 +5,24 @@ import java.awt.*;
 
 public class Vorschau extends JPanel {
 
+    private String punktzahl;
+    private  JLabel textArea;
+    private  JLabel jLabel;
+
     public Vorschau (){
         setBounds(11*Block.BLOCK_SIZE,0,11*Block.BLOCK_SIZE,
                 20*Block.BLOCK_SIZE);
         setBackground(Color.darkGray);
         setLayout(null);
+        jLabel = new JLabel("Punktzahl");
+        jLabel.setBounds(0,0,100,50);
+        jLabel.setVisible(true);
+        this.add(jLabel);
+        textArea = new JLabel(punktzahl);
+        textArea.setBounds(100,0,100,50);
+        textArea.setVisible(true);
+        this.add(textArea);
+
     }
 
     public void vorschau_anzeigen(Form naechsteForm){
@@ -23,6 +36,13 @@ public class Vorschau extends JPanel {
                 }
             }
         }
+        this.add(jLabel);
+        this.add(textArea);
+        textArea.setText(punktzahl);
         repaint();
+    }
+
+    public void setPunktzahl(String punktzahl) {
+        this.punktzahl = punktzahl;
     }
 }

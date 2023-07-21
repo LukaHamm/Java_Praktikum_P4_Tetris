@@ -11,12 +11,18 @@ import java.util.Random;
 public class GameBrian extends JPanel {
 
     public static final int Bildwiederholrate = 30;
+
+    private final int zufallsZahlExplosivBlock = 3;
     private float fallgeschwindigkeit;
+
+    private int geloeschteReihenInsgesamt;
+
+    private int punktzahl;
+
     private int level;
     private long zeitinMs;
     private Spielfeld spielfeld;
 
-    private JPanel vorschau;
     private Form form;
     private Form naechste_form;
     private Form [] formen = new Form[7];
@@ -43,7 +49,7 @@ public class GameBrian extends JPanel {
         formen[5] = z_form_invertiert;
         PyramideForm pyramide = new PyramideForm();
         formen[6] = pyramide;
-        fallgeschwindigkeit = 0.5f;
+        fallgeschwindigkeit = 1;
         level = 1;
         zeitinMs = System.currentTimeMillis();
         farben = new Color[]{Color.BLUE, Color.YELLOW, Color.RED, Color.GREEN, Color.CYAN, Color.PINK, Color.ORANGE};
@@ -80,7 +86,6 @@ public class GameBrian extends JPanel {
     }
 
     public void generiere_naechste_Form(){
-        fallgeschwindigkeit=1;
         form = naechste_form;
         naechste_form = form_generieren();
         form_anzeigen();
@@ -104,10 +109,15 @@ public class GameBrian extends JPanel {
         Random random = new Random();
         int index = random.nextInt(1,8)-1;
         int indexFarbe = random.nextInt(1,7)-1;
+        int wKeitExplosivblock = random.nextInt(1,11);
         Color farbe = farben[indexFarbe];
+        Form generierte_Form = new Form(formen[index],farbe);
+        if (wKeitExplosivblock == zufallsZahlExplosivBlock){
+            int block = random.nextInt(1,5);
+            generierte_Form.explosivblock_erzeugen(block);
+        }
 
-
-    return new Form(formen[index],farbe);
+    return generierte_Form;
     }
 
     private void form_anzeigen(){
@@ -125,26 +135,62 @@ public class GameBrian extends JPanel {
         List<Block> geloeschteBloecke = spielfeld.loeschen_und_nachruecken();
         for (Block block: geloeschteBloecke){
             this.remove(block);
-            repaint();
         }
+        repaint();
+        punktzahl_berechnen(geloeschteBloecke.size()/10);
+        geloeschteReihenInsgesamt += geloeschteBloecke.size()/10;
+
     }
 
+
+    public void levelWechseln(){
+        if (geloeschteReihenInsgesamt >= 10){
+            level++;
+            fallgeschwindigkeit = 1 + 0.5f*level;
+            geloeschteReihenInsgesamt = 0;
+        }
+        if (level%5 == 0){
+
+        } else if (level%10==0) {
+
+        }
+
+    }
 
 
     private void check_spielende(){
 
     }
 
-    private void punktzahl_berechnen(){
-
+    private void punktzahl_berechnen(int reihen){
+        switch (reihen){
+            case 0:
+                break;
+            case 1:
+                punktzahl = punktzahl + 40*level;
+                break;
+            case 2:
+                punktzahl = punktzahl + 100*level;
+                break;
+            case 3:
+                punktzahl = punktzahl +300*level;
+                break;
+            default:
+                punktzahl = punktzahl +1200*level;
+                break;
+        }
     }
 
     private void highscores_anzeigen(){
 
     }
 
-    public void block_soll_explodieren(Block block, int radius){
-
+    public void block_soll_explodieren(){
+            List<Block> blockListe = spielfeld.block_durchfuehren_explodieren();
+            for (Block block: blockListe){
+                this.remove(block);
+            }
+            repaint();
     }
 
     public void eingabe_verarbeiten(KeyEvent event){
@@ -188,5 +234,9 @@ public class GameBrian extends JPanel {
 
     public Form getNaechste_form() {
         return naechste_form;
+    }
+
+    public int getPunktzahl() {
+        return punktzahl;
     }
 }

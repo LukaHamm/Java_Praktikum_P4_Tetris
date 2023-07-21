@@ -70,7 +70,11 @@ public class Form {
         for (int i = 0;i<5;i++){
             for (int j =0;j<5;j++) {
                 if (blockListe[i][j] != null) {
-                    this.blockListe[i][j] = new Block(blockListe[i][j].getX(), blockListe[i][j].getY(),farbe);
+                    if (blockListe[i][j] instanceof ExplosionBlock){
+                        this.blockListe[i][j] = new ExplosionBlock(blockListe[i][j].getX(), blockListe[i][j].getY());
+                    }else {
+                        this.blockListe[i][j] = new Block(blockListe[i][j].getX(), blockListe[i][j].getY(), farbe);
+                    }
                 }
             }
         }
@@ -131,6 +135,23 @@ public class Form {
                 }
             }
         }
+    }
+
+    public void explosivblock_erzeugen(int blocknummer){
+        int zaehler = 0;
+        for (int i = 0; i<5;i++){
+            for (int j = 0; j<5;j++){
+                if (blockListe[i][j] != null){
+                    zaehler++;
+                }
+                if (zaehler == blocknummer){
+                    blockListe[i][j] = new ExplosionBlock(blockListe[i][j].getX(),blockListe[i][j].getY());
+                    break;
+                }
+            }
+            if (zaehler == blocknummer) break;
+        }
+
     }
 
     public void nachruecken(int distanz){

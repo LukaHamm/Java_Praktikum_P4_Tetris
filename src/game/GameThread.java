@@ -14,6 +14,7 @@ public class GameThread extends Thread{
     public void run() {
         while (true) {
             gameBrian.generiere_naechste_Form();
+            vorschau.setPunktzahl(gameBrian.getPunktzahl() +"");
             vorschau.vorschau_anzeigen(gameBrian.getNaechste_form());
             while (gameBrian.form_bewegen()) {
                 try {
@@ -24,7 +25,9 @@ public class GameThread extends Thread{
             }
             gameBrian.uebernehme_bloecke();
             gameBrian.loeschen_und_nachruecken();
+            gameBrian.block_soll_explodieren();
             gameBrian.diamantblock_generieren();
+            gameBrian.levelWechseln();
         }
     }
 }

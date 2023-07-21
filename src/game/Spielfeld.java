@@ -64,8 +64,31 @@ public class Spielfeld {
         return blockMap;
     }
 
-    public Block [] block_durchfuehren_explodieren(){
-        return null;
+    public List<Block> block_durchfuehren_explodieren(){
+        List<Block> geloeschteBloeckeList = new ArrayList<>();
+        for (int i = 0; i< 20;i++){
+            for (int j = 0; j<10;j++){
+                Block spielfeldBlock = spielfeld_blockliste[i][j];
+                if (spielfeldBlock != null){
+                    if (spielfeldBlock instanceof ExplosionBlock){
+                        int untereGrenze = Math.max(i-ExplosionBlock.explosionsRadius,0);
+                        int obereGrenze = Math.min(i+ExplosionBlock.explosionsRadius,19);
+                        int linkeGrenze = Math.max(j-ExplosionBlock.explosionsRadius,0);
+                        int rechteGrenze = Math.min(j+ExplosionBlock.explosionsRadius,9);
+                        for (int k = untereGrenze;k<obereGrenze+1;k++){
+                            for (int l = linkeGrenze;l<rechteGrenze+1;l++){
+                                Block zuloeschenderBlock = spielfeld_blockliste[k][l];
+                                if (zuloeschenderBlock != null){
+                                    geloeschteBloeckeList.add(zuloeschenderBlock);
+                                    spielfeld_blockliste[k][l]= null;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return geloeschteBloeckeList;
     }
 
     public boolean beruehrt_boden(Form form, int schritt){
@@ -119,7 +142,7 @@ public class Spielfeld {
         for (Block [] reihe: blockListe){
             for (Block block: reihe){
                 if (block != null){
-                    if (block.getY() +Block.BLOCK_SIZE > Block.BLOCK_SIZE*24 || block.getX() + Block.BLOCK_SIZE > 10*Block.BLOCK_SIZE || block.getY() < Block.BLOCK_SIZE*4 || block.getX() < 0){
+                    if (block.getY() +Block.BLOCK_SIZE > Block.BLOCK_SIZE*24 || block.getX() + Block.BLOCK_SIZE > 10*Block.BLOCK_SIZE || block.getY() < 0 || block.getX() < 0){
                         return false;
                     }
                     for (Block [] spielfeldreihe: this.spielfeld_blockliste){

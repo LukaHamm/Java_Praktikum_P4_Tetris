@@ -12,7 +12,7 @@ public class GameThread extends Thread{
 
     @Override
     public void run() {
-        while (true) {
+        while (!gameBrian.check_spielende()) {
             gameBrian.generiere_naechste_Form();
             vorschau.setPunktzahl(gameBrian.getPunktzahl() +"");
             vorschau.vorschau_anzeigen(gameBrian.getNaechste_form());

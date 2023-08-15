@@ -15,12 +15,16 @@ public class Vorschau extends JPanel {
         setBackground(Color.darkGray);
         setLayout(null);
         jLabel = new JLabel("Punktzahl");
-        jLabel.setBounds(0,0,100,50);
+        jLabel.setBounds(0,0,2*Block.BLOCK_SIZE,Block.BLOCK_SIZE);
         jLabel.setVisible(true);
+        jLabel.setFont(new Font("Arial",Font.PLAIN,20));
+        jLabel.setForeground(Color.WHITE);
         this.add(jLabel);
         textArea = new JLabel(punktzahl);
-        textArea.setBounds(100,0,100,50);
+        textArea.setBounds(2*Block.BLOCK_SIZE,0,2*Block.BLOCK_SIZE,Block.BLOCK_SIZE);
         textArea.setVisible(true);
+        textArea.setFont(new Font("Arial",Font.PLAIN,20));
+        textArea.setForeground(Color.WHITE);
         this.add(textArea);
 
     }

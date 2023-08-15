@@ -22,7 +22,7 @@ public class Form {
                                                          {null,null,null,null,null},
                                                          {null,null,null,null,null}};
 
-    protected static final Block [][] PYRAMIDE_BLOCKLISTE = {{null,null,new Block(Block.BLOCK_SIZE*5,Block.BLOCK_SIZE*2,null),null,null},
+    protected static final Block [][] PYRAMIDE_BLOCKLISTE = {{null,null,new Block(Block.BLOCK_SIZE*6,Block.BLOCK_SIZE*2,null),null,null},
                                                          {null,new Block(Block.BLOCK_SIZE*5,Block.BLOCK_SIZE*3,null),new Block(Block.BLOCK_SIZE*6,Block.BLOCK_SIZE*3,null),new Block(Block.BLOCK_SIZE*7,Block.BLOCK_SIZE*3,null),null},
                                                          {null,null,null,null,null},
                                                          {null,null,null,null,null},

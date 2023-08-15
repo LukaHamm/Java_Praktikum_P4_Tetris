@@ -95,13 +95,13 @@ public class Spielfeld {
         for(Block [] reihe: form.getBlockListe()){
             for (Block block: reihe){
                 if (block != null){
-                    if (block.getY() +Block.BLOCK_SIZE +schritt >= Block.BLOCK_SIZE*24){
+                    if (block.getY() +Block.BLOCK_SIZE +schritt > Block.BLOCK_SIZE*24){
                         return true;
                     }
                     for (Block [] spielfeld_reihe: this.spielfeld_blockliste){
                         for (Block spielfeld_block: spielfeld_reihe){
                             if (spielfeld_block != null){
-                                if (block.getY() + Block.BLOCK_SIZE + schritt >= spielfeld_block.getY() && block.getX() == spielfeld_block.getX() && (block.getY() + schritt-spielfeld_block.getY()) < Block.BLOCK_SIZE){
+                                if (block.getY() + Block.BLOCK_SIZE + schritt > spielfeld_block.getY() && block.getX() == spielfeld_block.getX() && (block.getY() + schritt-spielfeld_block.getY()) < Block.BLOCK_SIZE){
                                     return true;
                                 }
                             }
@@ -125,7 +125,7 @@ public class Spielfeld {
                     for (Block [] spielfeld_reihe: this.spielfeld_blockliste){
                         for (Block spielfeld_block: spielfeld_reihe){
                             if (spielfeld_block != null){
-                                if (block.getX() + schritt == spielfeld_block.getX() && block.getY() +Block.BLOCK_SIZE >= spielfeld_block.getY() && (block.getY()-spielfeld_block.getY()) < Block.BLOCK_SIZE){
+                                if (block.getX() + schritt == spielfeld_block.getX() && block.getY() +Block.BLOCK_SIZE > spielfeld_block.getY() && (block.getY()-spielfeld_block.getY()) < Block.BLOCK_SIZE){
                                     return true;
                                 }
                             }
@@ -161,6 +161,7 @@ public class Spielfeld {
     }
 
 
+
     public void setze_auf_Boden(Form form){
         int kleinstedistanz = 24*Block.BLOCK_SIZE;
         for (Block [] reihe: form.getBlockListe()){
@@ -185,12 +186,15 @@ public class Spielfeld {
         form.nachruecken(kleinstedistanz);
     }
 
-    public void uebernehme_bloecke(Form form){
+    public void uebernehme_bloecke(Form form) throws FormOutOfBoundException{
         for (Block [] reihe: form.getBlockListe()){
             for (Block block: reihe){
                 if (block != null){
                     int indexX = (block.getX())/Block.BLOCK_SIZE;
                     int indexY = (block.getY() -4*Block.BLOCK_SIZE)/Block.BLOCK_SIZE;
+                    if (indexY < 0){
+                        throw new FormOutOfBoundException();
+                    }
                     spielfeld_blockliste[indexY][indexX] = block;
                 }
             }

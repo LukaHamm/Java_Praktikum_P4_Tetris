@@ -28,10 +28,8 @@ public class GameBrian extends JPanel {
     private Form [] formen = new Form[7];
     private Color [] farben;
 
-    public boolean pfeiltaste_unten_gedrueckt;
+    private boolean isSpielende;
 
-
-    private GameThread gameThread;
 
     public GameBrian (){
         this.setBounds(0,0,10*Block.BLOCK_SIZE,20*Block.BLOCK_SIZE);
@@ -64,9 +62,6 @@ public class GameBrian extends JPanel {
     protected void paintComponent(Graphics g) {
         //Linien zeichnen
         super.paintComponent(g);
-        JScrollPane scrollPane = (JScrollPane) getParent().getParent();
-        JScrollBar jScrollBar = scrollPane.getVerticalScrollBar();
-        jScrollBar.setValue(4*Block.BLOCK_SIZE);
         for (int i = 0; i<28;i++){
             for (int j = 0; j<10; j++){
                 g.setColor(Color.BLACK);
@@ -113,8 +108,8 @@ public class GameBrian extends JPanel {
         Color farbe = farben[indexFarbe];
         Form generierte_Form = new Form(formen[index],farbe);
         if (wKeitExplosivblock == zufallsZahlExplosivBlock){
-            int block = random.nextInt(1,5);
-            generierte_Form.explosivblock_erzeugen(block);
+             int blocknummer = random.nextInt(1,5);
+            generierte_Form.explosivblock_erzeugen(blocknummer);
         }
 
     return generierte_Form;
@@ -158,8 +153,8 @@ public class GameBrian extends JPanel {
     }
 
 
-    private void check_spielende(){
-
+    public boolean check_spielende(){
+        return isSpielende;
     }
 
     private void punktzahl_berechnen(int reihen){
@@ -229,7 +224,12 @@ public class GameBrian extends JPanel {
     }
 
     public void uebernehme_bloecke(){
-        spielfeld.uebernehme_bloecke(form);
+        try {
+            spielfeld.uebernehme_bloecke(form);
+        }catch (FormOutOfBoundException e){
+            isSpielende =true;
+        }
+
     }
 
     public Form getNaechste_form() {

@@ -189,6 +189,9 @@ public class GameBrian extends JPanel {
     }
 
     public void eingabe_verarbeiten(KeyEvent event){
+        if (isSpielende){
+            return;
+        }
         int keyCode = event.getKeyCode();
         if (keyCode==KeyEvent.VK_LEFT) {
             if (!spielfeld.beruehrt_seitlich(form,-Block.BLOCK_SIZE)) {
@@ -210,6 +213,9 @@ public class GameBrian extends JPanel {
     }
 
     public void taste_losgelassen(KeyEvent event){
+        if (isSpielende){
+            return;
+        }
         int keyCode = event.getKeyCode();
         if (keyCode==KeyEvent.VK_DOWN) {
             for (; ; ) {

@@ -81,6 +81,9 @@ public class Form {
     }
 
     public Block [][] drehen(){
+        if (zentrum ==null){
+            return null;
+        }
         Block zentrumBlock = new Block(this.blockListe[zentrum[0]][zentrum[1]].getX(),this.blockListe[zentrum[0]][zentrum[1]].getY(),farbe);
         Block [][] blockListeGedreht = new Block[5][5];
         for (int i = 0; i<5;i++){

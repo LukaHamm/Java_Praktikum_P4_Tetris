@@ -1,5 +1,8 @@
 package game;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class GameThread extends Thread{
 
     private GameBrian gameBrian;
@@ -29,5 +32,9 @@ public class GameThread extends Thread{
             gameBrian.diamantblock_generieren();
             gameBrian.levelWechseln();
         }
+        System.out.println("Spiel beendet");
+        JOptionPane.showMessageDialog(null, "Gameover, Spiel wird beendet");
+        System.exit(0);
+
     }
 }

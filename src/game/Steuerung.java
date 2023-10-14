@@ -85,7 +85,6 @@ public class Steuerung extends JFrame {
                 menue.setVisible(false);
                 spielBeenden.setVisible(false);
                 spielStarten.setVisible(false);
-                highscoreAnzeigen.setVisible(false);
             }
         });
 
@@ -95,25 +94,12 @@ public class Steuerung extends JFrame {
         spielBeenden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            }
-        });
-        highscoreAnzeigen = new JButton("Highscores anzeigen");
-        highscoreAnzeigen.setBounds(6*Block.BLOCK_SIZE,8*Block.BLOCK_SIZE,4*Block.BLOCK_SIZE,Block.BLOCK_SIZE);
-        highscoreAnzeigen.setFocusable(false);
-        highscoreAnzeigen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+                System.exit(0);
             }
         });
         menue.add(spielStarten);
         menue.add(spielBeenden);
-        menue.add(highscoreAnzeigen);
         contentPane.add(menue,0);
-
-
-
-
 
         addKeyListener(new KeyAdapter() {
             @Override

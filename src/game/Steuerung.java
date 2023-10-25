@@ -8,17 +8,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class Steuerung extends JFrame {
 
     private static GameBrian gameBrian;
-    private static GameThread gameThread;
+    private static GameBrian.GameThread gameThread;
     private JPanel contentPane;
 
     private static JScrollPane scrollPane;
 
     private JButton spielStarten;
     private JButton spielBeenden;
-    private JButton highscoreAnzeigen;
 
     private JPanel menue;
 
@@ -52,7 +52,7 @@ public class Steuerung extends JFrame {
     public Steuerung (){
         Vorschau vorschau = new Vorschau();
         gameBrian = new GameBrian();
-        gameThread = new GameThread(gameBrian, vorschau);
+        gameThread = gameBrian. new GameThread(gameBrian, vorschau);
         scrollPane = new JScrollPane(gameBrian);
         scrollPane.setBounds(0,0,11*Block.BLOCK_SIZE,
                 20*Block.BLOCK_SIZE);

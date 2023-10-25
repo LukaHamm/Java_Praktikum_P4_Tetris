@@ -194,8 +194,6 @@ public class Form {
 				blockListe[i] = new ExplosionBlock(blockListe[i].getX(), blockListe[i].getY());
 				break;
 			}
-			if (zaehler == blocknummer)
-				break;
 		}
 
 	}
